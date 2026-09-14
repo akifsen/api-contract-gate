@@ -1,0 +1,25 @@
+{
+  "info": {
+    "version": "1.0.0",
+    "title": "Synthetic Orders"
+  },
+  "paths": {
+    "/orders": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Orders",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "https://127.0.0.1:1/never-fetch.json"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "openapi": "3.0.3"
+}

@@ -1,0 +1,28 @@
+{
+  "info": {
+    "version": "1.0.0",
+    "title": "Synthetic Orders"
+  },
+  "paths": {
+    "/orders": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Orders"
+          }
+        },
+        "parameters": [
+          {
+            "in": "query",
+            "name": "search",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "openapi": "3.0.3"
+}

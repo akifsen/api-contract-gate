@@ -1,0 +1,8 @@
+{
+  "status" : "ERROR",
+  "exitCode" : 2,
+  "oldSha256" : "",
+  "newSha256" : "",
+  "findings" : [ ],
+  "warnings" : [ "Invalid input, policy, parser or output; this is not a compatibility pass." ]
+}

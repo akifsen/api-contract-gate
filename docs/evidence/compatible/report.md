@@ -1,0 +1,11 @@
+# API compatibility report
+
+Status: **COMPATIBLE**; exit 0.
+
+Old SHA-256: 799ed70ea1fd8c2b8df047e25b476368ba44f2ec6beac806c7ebf5451edf1133
+
+New SHA-256: 997c3151acdc35c130c5e24c6b65c8473e8fbadacdcae1fa6c4f2fd58998ec02
+
+- OpenAPI Diff 2.1.7 default compatibility rules; runtime/business semantics are not proven.
+- Fingerprints bind category/location and the exact canonical contract pair; unrelated edits conservatively invalidate waivers.
+- JSON OpenAPI 3.0.0–3.0.3 only; external refs and recursive schemas are rejected. Compatible does not mean unchanged.

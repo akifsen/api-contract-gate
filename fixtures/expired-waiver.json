@@ -1,0 +1,8 @@
+[
+  {
+    "fingerprint": "a8682d448247ae94f8314ee1c536623498ddfa19a2110d816ede796c99766975",
+    "reason": "Synthetic coordinated consumer migration example",
+    "expires": "2000-01-01",
+    "owner": "synthetic-api-team"
+  }
+]

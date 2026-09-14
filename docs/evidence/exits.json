@@ -1,0 +1,22 @@
+[
+  {
+    "scenario": "compatible",
+    "exitCode": 0
+  },
+  {
+    "scenario": "breaking",
+    "exitCode": 1
+  },
+  {
+    "scenario": "invalid",
+    "exitCode": 2
+  },
+  {
+    "scenario": "waived",
+    "exitCode": 0
+  },
+  {
+    "scenario": "expired",
+    "exitCode": 2
+  }
+]
