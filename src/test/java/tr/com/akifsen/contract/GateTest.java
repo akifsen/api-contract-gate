@@ -30,6 +30,29 @@ class GateTest {
     }
 
     @Test
+    void waiverMetadataRequiresStringsAndExpiryUsesUtc() throws Exception {
+        var report = Gate.compare(fixture("base"), fixture("breaking"), null, CLOCK);
+        var array = Gate.JSON.createArrayNode();
+        for (var finding : report.findings())
+            array.addObject()
+                    .put("fingerprint", finding.fingerprint())
+                    .put("owner", "team")
+                    .put("reason", "Reviewed migration")
+                    .put("expires", "2026-09-15");
+        Path waiver = temp.resolve("typed.json");
+        Files.writeString(waiver, array.toString());
+        Clock east = Clock.fixed(Instant.parse("2026-09-14T23:30:00Z"), ZoneOffset.ofHours(2));
+        assertEquals(
+                "WAIVED",
+                Gate.compare(fixture("base"), fixture("breaking"), waiver, east).status());
+        ((com.fasterxml.jackson.databind.node.ObjectNode) array.get(0)).put("owner", 123);
+        Files.writeString(waiver, array.toString());
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> Gate.compare(fixture("base"), fixture("breaking"), waiver, CLOCK));
+    }
+
+    @Test
     void exactWaiversExpireAndDoNotCoverAnotherChange() throws Exception {
         var report = Gate.compare(fixture("base"), fixture("breaking"), null, CLOCK);
         var array = Gate.JSON.createArrayNode();

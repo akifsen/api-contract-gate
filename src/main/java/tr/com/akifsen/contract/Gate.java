@@ -124,6 +124,8 @@ public final class Gate {
         for (JsonNode node : tree) {
             if (!node.isObject() || node.size() != 4)
                 throw new IllegalArgumentException("Waiver needs fingerprint, owner, reason, expires only");
+            for (String field : List.of("fingerprint", "owner", "reason", "expires"))
+                if (!node.path(field).isTextual()) throw new IllegalArgumentException("Waiver fields must be strings");
             String fingerprint = node.path("fingerprint").asText(),
                     owner = node.path("owner").asText(),
                     reason = node.path("reason").asText();
@@ -143,7 +145,7 @@ public final class Gate {
 
     public static Report compare(Path before, Path after, Path exceptions, Clock clock) throws Exception {
         Document old = document(before), next = document(after);
-        var waivers = waivers(exceptions, LocalDate.now(clock));
+        var waivers = waivers(exceptions, LocalDate.now(clock.withZone(ZoneOffset.UTC)));
         var diff = OpenApiCompare.fromSpecifications(old.model(), next.model());
         List<Finding> findings = new ArrayList<>();
         for (var missing : diff.getMissingEndpoints())

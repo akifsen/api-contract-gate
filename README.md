@@ -56,3 +56,7 @@ The placeholder above is intentionally invalid until replaced with an actual rep
 Per input 256 KiB, JSON nesting 40, strings 65,536 chars, at most 100 paths, reference traversal 20,000 visits/depth 40, at most 128 waivers, report text cap one MiB. Reject duplicate JSON keys and trailing documents. Trusted CI contracts are assumed: the dependency parser/diff engine runs synchronously, so these bounds are not a hard CPU deadline or a hostile-parser sandbox. Run the documented heap cap and an external CI timeout. No live API, URL fetch or shell command is needed for comparison.
 
 Five unit tests exercise the actual engine and policy; one packaged CLI test exercises compatible/breaking/waived/expired/invalid exits and both report formats. [Verification](docs/verification.md) records execution. [ADR](docs/adr/001-policy.md), [references](docs/references.md), [contributing](CONTRIBUTING.md). MIT application source; upstream OpenAPI Diff is Apache-2.0 and other shaded dependencies keep their own notices. No published release, GitHub CI pass or complete semantic compatibility guarantee is claimed.
+
+## Review corrections — 2026-09-20
+
+CLI rejects report/input collisions (including existing hard links) before any success or error report is written. Waiver fields must be JSON strings and expiry is always evaluated in UTC.

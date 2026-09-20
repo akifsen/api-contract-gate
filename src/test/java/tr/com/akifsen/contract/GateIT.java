@@ -72,4 +72,17 @@ class GateIT {
         assertEquals(
                 "ERROR", Gate.read(output.resolve("report.json")).path("status").asText());
     }
+
+    @Test
+    void outputMustNotOverwriteWaiverInputEvenWhenInputIsInvalid() throws Exception {
+        Path output = Files.createDirectory(temp.resolve("collision"));
+        Path waiver = output.resolve("report.json");
+        String original = "[]";
+        Files.writeString(waiver, original);
+        assertEquals(2, cli("compatible", output, waiver));
+        assertEquals(original, Files.readString(waiver));
+        Files.writeString(waiver, "invalid JSON");
+        assertEquals(2, cli("compatible", output, waiver));
+        assertEquals("invalid JSON", Files.readString(waiver));
+    }
 }
